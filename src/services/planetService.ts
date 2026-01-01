@@ -119,3 +119,48 @@ export async function getPlanetTileTemplate(_opts: {
 }): Promise<{ tileTemplate?: string } | null> {
   return null;
 }
+
+export type AOISubmission = {
+  aoi: {
+    type: 'Feature';
+    geometry: {
+      type: 'Point' | 'LineString' | 'Polygon';
+      coordinates: number[][] | number[][][];
+    };
+    properties: {
+      drawingType: string;
+      createdAt: string;
+    };
+  };
+  configId?: string;
+  lat: number;
+  lon: number;
+  startDate: string;
+  endDate: string;
+  layers: string[];
+};
+
+export async function submitAOI(req: AOISubmission): Promise<any> {
+  try {
+    const url = 'https://kqilyltlrklxaxqqqisj.functions.supabase.co/planet-aoi';
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+      },
+      body: JSON.stringify(req),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => '');
+      throw new Error(`AOI submission failed: ${res.status} ${errorText}`);
+    }
+
+    return await res.json();
+  } catch (e) {
+    console.error('❌ AOI submission error:', e);
+    throw e;
+  }
+}
