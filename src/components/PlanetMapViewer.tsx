@@ -433,7 +433,7 @@ export const PlanetMapViewer: React.FC<Props> = ({
               onClick={handleFetch}
               className="bg-green-600 text-white px-3 py-1 rounded text-xs"
             >
-              Fetch
+              Live
             </button>
             <button
               onClick={() => {
