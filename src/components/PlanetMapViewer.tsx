@@ -95,7 +95,7 @@ const LAYER_IDS = [
   '4_FALSE-COLOR-URBAN-L1C', '2_TONEMAPPED-NATURAL-COLOR-L1C', '6_SWIR-L1C',
   
   // 🔥 APPLE DISEASE (17 NEW)
-  'OSAVI', 'PSRI', 'ExG', 'VARI', 'GNDVI', 'NDMI', 'SAVI', 
+  'OSAVI', 'PSRI', 'EXG', 'VARI', 'GNDVI', 'NDMI', 'SAVI', 
   'NDWI', 'LSWI', 'NGRDI', 'CIGREEN', 'GLI', 'NDRE', 'MSAVI',
   'DVI', 'RVI', 'IPVI', 'NDGI',
   
@@ -106,7 +106,7 @@ const LAYER_IDS = [
 
 const LAYER_GROUPS = {
   '🌱 Vegetation Health': ['EVI', '3_NDVI-L1C', 'OSAVI', 'SAVI', 'MSAVI', 'GNDVI', 'NDRE', 'RENDVI', 'MCARI', 'MTCI', 'TCARI', 'TSAVI'],
-  '🔥 Apple Disease': ['PSRI', 'ExG', 'VARI', 'NGRDI', 'CIGREEN', 'GLI', 'NDGI'],
+  '🔥 Apple Disease': ['PSRI', 'EXG', 'VARI', 'NGRDI', 'CIGREEN', 'GLI', 'NDGI'],
   '💧 Moisture/Water': ['MOISTURE-INDEX', '5_MOISTURE-INDEX-L1C', 'NDMI', 'NDWI', 'LSWI'],
   '🌈 Visual': ['1_TRUE-COLOR-L1C', '2_FALSE-COLOR-L1C', '4_FALSE-COLOR-URBAN-L1C', '2_TONEMAPPED-NATURAL-COLOR-L1C', '6_SWIR-L1C'],
   '❄️ Other': ['8_NDSI-L1C', 'DVI', 'RVI', 'IPVI', 'WDVI', 'PVI', 'TVI', 'VIGREEN', 'SIPI', 'WBI']
