@@ -52,7 +52,7 @@ const corsHeaders = {
 const getAOICenter = (
   geometry: AOIRequest['aoi']['geometry']
 ): [number, number] => {
-  const coords = geometry.coordinates as number[][];
+  const coords = geometry.coordinates;
 
   if (geometry.type === 'Point') {
     return coords as [number, number];
@@ -63,7 +63,7 @@ const getAOICenter = (
     sumLon = 0,
     count = 0;
 
-  const flatCoords = geometry.type === 'Polygon' ? coords[0] : coords;
+  const flatCoords = geometry.type === 'Polygon' ? (coords as number[][][])[0] : coords as number[][];
 
   flatCoords.forEach((coord) => {
     sumLon += coord[0];
