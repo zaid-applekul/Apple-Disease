@@ -18,8 +18,7 @@ export async function fetchPlanetInsights(
 ): Promise<any> {
   // 1) Try real Supabase Edge Function first
   try {
-    const url =
-      'https://kqilyltlrklxaxqqqisj.functions.supabase.co/planet-insights';
+    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/planet-insights`;
     const res = await fetch(url, {
       method: 'POST',
       headers: {
@@ -142,7 +141,7 @@ export type AOISubmission = {
 
 export async function submitAOI(req: AOISubmission): Promise<any> {
   try {
-    const url = 'https://kqilyltlrklxaxqqqisj.functions.supabase.co/planet-aoi';
+    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/planet-aoi`;
     const res = await fetch(url, {
       method: 'POST',
       headers: {
