@@ -717,7 +717,7 @@ export const PlanetMapViewer: React.FC<Props> = ({
     if (on && L && mapRef.current) {
       try {
         const layerName = encodeURIComponent(id);
-        const base = 'https://kqilyltlrklxaxqqqisj.functions.supabase.co/planet-proxy';
+        const base = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/planet-proxy`;
 
         const tplUrl =
           `${base}?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0` +
@@ -859,7 +859,7 @@ export const PlanetMapViewer: React.FC<Props> = ({
       : id;
 
   const sendAOIToBackend = async (aoiGeoJSON: AOIGeoJSON): Promise<any> => {
-    const response = await fetch('https://kqilyltlrklxaxqqqisj.functions.supabase.co/planet-aoi', {
+    const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/planet-aoi`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

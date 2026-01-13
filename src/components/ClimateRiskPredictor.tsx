@@ -665,7 +665,7 @@ export default function ClimateRiskPredictor(): JSX.Element {
           <PlanetMapViewer
             initialLat={viewParams.latitude ?? 34.1}
             initialLon={viewParams.longitude ?? 74.8}
-            configId="0dc5fcdc-69e2-4789-8511-6b0cc7efbff3"
+            configId={import.meta.env.VITE_PLANET_CONFIG_ID}
             onAutoFill={handlePlanetAutoFill}
           />
         </div>

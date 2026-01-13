@@ -13,9 +13,7 @@ serve(async (req) => {
 
   try {
     const PLANET_API_KEY = Deno.env.get('PLANET_API_KEY') ?? '';
-    const PLANET_CONFIG_ID_JK =
-      Deno.env.get('PLANET_CONFIG_ID_JK') ??
-      '0dc5fcdc-69e2-4789-8511-6b0cc7efbff3';
+    const PLANET_CONFIG_ID = Deno.env.get('PLANET_CONFIG_ID') ?? '';
 
     if (!PLANET_API_KEY) {
       return new Response(
@@ -27,9 +25,9 @@ serve(async (req) => {
       );
     }
 
-    if (!PLANET_CONFIG_ID_JK) {
+    if (!PLANET_CONFIG_ID) {
       return new Response(
-        JSON.stringify({ error: 'PLANET_CONFIG_ID_JK not set' }),
+        JSON.stringify({ error: 'PLANET_CONFIG_ID not set' }),
         {
           status: 400,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -42,7 +40,7 @@ serve(async (req) => {
 
     // Sentinel Hub WMTS endpoint for this instance
     const target =
-      `https://services.sentinel-hub.com/ogc/wmts/${PLANET_CONFIG_ID_JK}${search}`;
+      `https://services.sentinel-hub.com/ogc/wmts/${PLANET_CONFIG_ID}${search}`;
 
     const upstreamRes = await fetch(target, {
       method: 'GET',
