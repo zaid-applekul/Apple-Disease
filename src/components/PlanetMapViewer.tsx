@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { fetchPlanetInsights } from '../services/planetService';
 import { saveAOI, getUserAOIs, deleteAllUserAOIs, deleteAOI, updateAOIName, SavedAOI } from '../services/aoiService';
-import { supabase } from '../services/supabaseClient';
+import { supabase } from '../lib/supabase';
 
 // Helper function to calculate distance between two points (Haversine formula)
 const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {

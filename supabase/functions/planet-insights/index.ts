@@ -28,6 +28,8 @@ const corsHeaders = {
 };
 
 Deno.serve(async (req: Request): Promise<Response> => {
+  console.log('🌍 planet-insights called:', req.method);
+  
   // 1) CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, {
@@ -48,6 +50,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
   let body: PlanetInsightsRequest;
   try {
     body = (await req.json()) as PlanetInsightsRequest;
+    console.log('📍 Request body:', { lat: body.lat, lon: body.lon, startDate: body.startDate, endDate: body.endDate });
   } catch {
     return new Response('Invalid JSON body', {
       status: 400,
@@ -86,6 +89,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     });
 
     const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
+    console.log('🌤️ Calling Open-Meteo:', url);
     const omRes = await fetch(url);
 
     if (!omRes.ok) {
@@ -156,6 +160,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       wetnessHours,
     };
 
+    console.log('✅ Returning climate data:', resp);
     return new Response(JSON.stringify(resp), {
       status: 200,
       headers: {

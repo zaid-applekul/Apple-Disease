@@ -82,6 +82,7 @@ const fetchClimateData = async (
   endDate: string
 ): Promise<ClimateData> => {
   try {
+    console.log('🌤️ Fetching climate data for AOI:', { lat, lon, startDate, endDate });
     const params = new URLSearchParams({
       latitude: String(lat),
       longitude: String(lon),
@@ -138,6 +139,25 @@ const fetchClimateData = async (
         ? Math.round(Math.min(168, rainfall * 3 + relativeHumidity / 3))
         : undefined;
 
+    const result = {
+      temperature:
+        temperature !== undefined
+          ? Math.round(temperature * 10) / 10
+          : undefined,
+      rainfall:
+        rainfall !== undefined ? Math.round(rainfall * 10) / 10 : undefined,
+      relativeHumidity:
+        relativeHumidity !== undefined
+          ? Math.round(relativeHumidity)
+          : undefined,
+      windSpeed:
+        windSpeed !== undefined ? Math.round(windSpeed * 10) / 10 : undefined,
+      soilMoisture,
+      canopyHumidity,
+      wetnessHours,
+    };
+    
+    console.log('✅ Climate data fetched:', result);
     return {
       temperature:
         temperature !== undefined

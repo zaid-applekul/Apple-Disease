@@ -21,6 +21,26 @@ import { RefreshCw, Info, Brain } from 'lucide-react';
 import { TrainingInterface } from './components/TrainingInterface';
 
 function App() {
+  // Check environment variables on app start
+  useEffect(() => {
+    const requiredEnvVars = {
+      VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
+      VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY,
+      VITE_PLANET_CONFIG_ID: import.meta.env.VITE_PLANET_CONFIG_ID,
+    };
+    
+    const missing = Object.entries(requiredEnvVars)
+      .filter(([key, value]) => !value)
+      .map(([key]) => key);
+    
+    if (missing.length > 0) {
+      console.error('❌ Missing environment variables:', missing);
+      console.log('📝 Please check your .env file contains:', Object.keys(requiredEnvVars));
+    } else {
+      console.log('✅ All required environment variables are present');
+    }
+  }, []);
+
   const [user, setUser] = useState<any>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
