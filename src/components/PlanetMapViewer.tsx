@@ -1108,7 +1108,7 @@ export const PlanetMapViewer: React.FC<Props> = ({
         {/* ✅ LOADING STATE */}
         {loadingAOIs && (
           <div className="text-xs text-gray-600 bg-blue-50 p-2 rounded">
-            📦 Loading saved boundaries...
+            📦 Loading saved orchards...
           </div>
         )}
 
@@ -1137,7 +1137,7 @@ export const PlanetMapViewer: React.FC<Props> = ({
             {savedAOIs.length > 0 && (
               <div className="mb-4">
                 <div className="text-xs font-semibold mb-2 flex items-center justify-between">
-                  <span>📍 Saved Boundaries ({savedAOIs.length})</span>
+                  <span>📍 Saved Orchards ({savedAOIs.length})</span>
                 </div>
                 <div className="max-h-32 overflow-y-auto space-y-1 mb-3">
                   {savedAOIs.map((aoi) => {
