@@ -53,17 +53,28 @@ export const getUserAOIs = async (configId?: string): Promise<SavedAOI[]> => {
   try {
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     
-    // ✅ FIXED: Better error handling
     if (authError || !user) {
       console.log('⚠️ No user logged in or auth error:', authError);
       return [];
     }
 
+    // Check if user is admin first
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_admin')
+      .eq('id', user.id)
+      .single();
+
     let query = supabase
       .from('aoi_boundaries')
       .select('*')
-      .eq('user_id', user.id)
       .order('created_at', { ascending: false });
+
+    // Regular users: filter by user_id (RLS already restricts)
+    if (!profile?.is_admin) {
+      query = query.eq('user_id', user.id);
+    }
+    // Admin: no user_id filter - RLS returns ALL boundaries
 
     if (configId) {
       query = query.eq('config_id', configId);
@@ -76,7 +87,7 @@ export const getUserAOIs = async (configId?: string): Promise<SavedAOI[]> => {
       throw error;
     }
     
-    console.log(`✅ Loaded ${data?.length || 0} AOIs for user ${user.id}`);
+    console.log(`✅ Loaded ${data?.length || 0} AOIs for ${profile?.is_admin ? 'ADMIN (ALL)' : 'user'} ${user.id}`);
     return data || [];
   } catch (error) {
     console.error('❌ Error loading AOIs:', error);
